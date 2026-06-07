@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #FFF8E7;
+  --color-bg-card: #F0E6D3;
+  --color-correct: #4CAF50;
+  --color-accent: #FF9800;
+  --color-error: #E57373;
+  --color-hour-hand: #2C3E50;
+  --color-minute-hand: #FF7043;
+  --color-clock-face: #FFFFFF;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+
+  --font-family-sans: "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  --font-family-clock: "Fredoka", "Noto Sans SC", sans-serif;
+}
+
+/* 全局样式 */
+html, body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+}
+
+#root {
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* 安全区域适配 */
+.safe-area-container {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* 时钟指针过渡 */
+.clock-hand-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clock-hand-dragging {
+  transition: none;
+}
+
+/* 按钮按压效果 */
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* 星星动画 */
+@keyframes star-pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.star-animate {
+  animation: star-pop 0.4s ease-out forwards;
+}
+
+/* 庆祝动画 */
+@keyframes celebrate {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1) rotate(-3deg); }
+  50% { transform: scale(1.15) rotate(3deg); }
+  75% { transform: scale(1.1) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+.celebrate-animate {
+  animation: celebrate 0.6s ease-in-out;
+}
+
+/* 抖动动画（错误反馈） */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.shake-animate {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* 浮动动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-animate {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .clock-hand-transition {
+    transition: none;
+  }
+  .star-animate,
+  .celebrate-animate,
+  .shake-animate,
+  .float-animate {
+    animation: none;
+  }
+}
